@@ -1,14 +1,21 @@
 [tool.poetry]
-name = "example-python-grpc"
+name = "example"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Karl Dreher"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+protobuf = "^5.27.3"
+grpcio = "^1.66.0"
+grpcio-tools = "^1.66.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+generate = "example.generate:main"

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+service Tasty {
+    rpc Eat(Fruit) returns (TastyResponse) {}
+}
+
+
+message Fruit {
+    FruitType name = 1; 
+}
+
+message TastyResponse {
+    FruitType name = 1;
+    int32 tastiness = 2;
+}
+
+enum FruitType {
+    APPLE = 0;
+    BANANA = 1;
+    ORANGE = 2;
+}
