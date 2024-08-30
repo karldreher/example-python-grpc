@@ -1,3 +1,7 @@
+# Is this a best practice?  
+## Generated protocol buffer code
+example_pb2*.py
+example_pb2.pyi
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
