@@ -1,9 +1,11 @@
 import random
 import grpc
+import logging
+
 import example_pb2
 import example_pb2_grpc
-# Import the generated gRPC module
 
+logging.basicConfig(level=logging.INFO)
 def run_client():
     # Create a gRPC channel to connect to the server
     channel = grpc.insecure_channel('localhost:50051')
@@ -15,11 +17,14 @@ def run_client():
     # print("requesting", fruit)
     # Make a request to the server
     request = example_pb2.Fruit(fruit=fruit)
-    response = stub.Eat(request)
-
-    # Print the response from the server
-    print(response)
-    # print(example_pb2.FruitType.Name(response.fruit), "tastiness", response.tastiness)
+    try:
+        response = stub.Eat(request)
+        # Print the response from the server
+        logging.info("Tasted %s, tastiness: %d", example_pb2.FruitType.Name(response.fruit), response.tastiness)
+    except grpc.RpcError as e:
+        logging.error(e.details())
+        logging.error(e.code())
+        logging.error("")
 
 
 def main():
