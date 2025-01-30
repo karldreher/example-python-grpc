@@ -21,9 +21,11 @@ def run_client():
     print(response)
     # print(example_pb2.FruitType.Name(response.fruit), "tastiness", response.tastiness)
 
+
 def main():
     for _ in range(100):
         run_client()
 
 if __name__ == '__main__':
     main()
+

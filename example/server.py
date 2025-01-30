@@ -22,6 +22,7 @@ class TastyServicer(example_pb2_grpc.TastyServicer):
         return example_pb2.TastyResponse(fruit=fruit, tastiness=tasty)
 
 
+
 async def serve() -> None:
     server = grpc.aio.server()
     example_pb2_grpc.add_TastyServicer_to_server(TastyServicer(), server)

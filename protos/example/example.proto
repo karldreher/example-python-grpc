@@ -21,4 +21,3 @@ message TastyResponse {
     int32 tastiness = 2;
 }
 
-
