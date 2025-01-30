@@ -15,11 +15,11 @@ class TastyServicer(example_pb2_grpc.TastyServicer):
         self,
         request: example_pb2.Fruit,
         context: grpc.aio.ServicerContext,
-    ) -> {}:
-        fruit = example_pb2.FruitType.Name(request.name)
+    ) -> example_pb2.TastyResponse:
+        fruit = example_pb2.FruitType.Name(request.fruit)
         logging.info("Tasting %s", fruit)
         tasty = await decide_tastiness(fruit)
-        return example_pb2.TastyResponse(name=request.name, tastiness=tasty)
+        return example_pb2.TastyResponse(fruit=fruit, tastiness=tasty)
 
 
 async def serve() -> None:
