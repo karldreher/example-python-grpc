@@ -1,9 +1,11 @@
 import random
 import grpc
+import logging
+
 import example_pb2
 import example_pb2_grpc
-# Import the generated gRPC module
 
+logging.basicConfig(level=logging.INFO)
 def run_client():
     # Create a gRPC channel to connect to the server
     channel = grpc.insecure_channel('localhost:50051')
@@ -12,14 +14,18 @@ def run_client():
     stub = example_pb2_grpc.TastyStub(channel)
     # randomly pick a fruit from the enum
     fruit = random.choice(example_pb2.FruitType.keys())
-    print("requesting", fruit)
+    # print("requesting", fruit)
     # Make a request to the server
-    request = example_pb2.Fruit(name=fruit)
-    response = stub.Eat(request)
+    request = example_pb2.Fruit(fruit=fruit)
+    try:
+        response = stub.Eat(request)
+        # Print the response from the server
+        logging.info("Tasted %s, tastiness: %d", example_pb2.FruitType.Name(response.fruit), response.tastiness)
+    except grpc.RpcError as e:
+        logging.error(e.details())
+        logging.error(e.code())
+        logging.error("")
 
-    # Print the response from the server
-    # feels wrong to use the enum like this, did i screw it up?
-    print(example_pb2.FruitType.Name(response.name), "tastiness", response.tastiness)
 
 def main():
     for _ in range(100):
@@ -27,3 +33,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
